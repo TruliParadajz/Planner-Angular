@@ -2,25 +2,25 @@
   <div class="row">
     <div class="col-md-4" style="float: none; margin: 0 auto;">
       <h1>Login </h1>
-        <form (ngSubmit)="onSubmit()" >
+        <form>
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" 
+            <input type="email"
+            class="form-control" 
             id="email" aria-describedby="emailHelp"
             placeholder="Enter email"
-            ([ngModel])="inputEmail"
+            #inputEmail
             >
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" 
             class="form-control" id="password" 
             placeholder="Password"
-            ([ngModel])="inputPassword"
+            #inputPassword
             >
           </div>
-          <button type="submit" class="btn btn-primary pull-right">Login</button>
+          <button type="submit" class="btn btn-primary pull-right" (click)="onSubmit(inputEmail.value, inputPassword.value)">Login</button>
         </form>
     </div>
   </div> 

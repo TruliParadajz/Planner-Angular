@@ -6,5 +6,5 @@ export class User {
     Email: string;
     Password: string;
     Role: string;
-    Tasks: Task[];
+    // Tasks?: Task[];
 }

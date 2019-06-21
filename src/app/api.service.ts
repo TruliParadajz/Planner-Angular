@@ -9,12 +9,16 @@ export class ApiService {
     constructor(public http: HttpClient) {}
 
     CheckUser(user: User) {
-
         // const header = new HttpHeaders();
         // header.set('Content-Type', 'application/json');
 
         // return this.http.post('http://localhost:60424/api/users/login', user, {headers: header});
-        return this.http.post('http://localhost:60424/api/users/login', user);
+        var buffer = user as any;
+        return this.http.put('http://localhost:60424/api/users/login', buffer);
+    }
+    GetUser()
+    {
+        return this.http.get('http://localhost:60424/api/users');
     }
 
 }

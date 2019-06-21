@@ -8,23 +8,37 @@ import { ApiService } from '../api.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- // User: User;
+  User: User = {
+    Name : "Željko",
+    Surname : "Hocenski",
+    Email : "hoc@gmail.com",
+    Role : "user",
+    Password : "12345",
+    Id : 8
+  };
   inputEmail: string;
   inputPassword: string;
 
   constructor(private service: ApiService) { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
+    //console.log(this.service.GetUser);
+    this.service.GetUser().subscribe(posts => {
+      console.log(posts);
+    })
   }
 
-  onSubmit() {
-   // this.User.Email = this.inputEmail;
-    // this.User.Password = this.inputPassword;
+  onSubmit(inputEmail, inputPassword) {
+    this.User.Email = inputEmail;
+    this.User.Password = inputPassword;
+    
+    this.service.CheckUser(this.User).subscribe(posts => {
+      console.log(posts);
+    })
 
-    // const response = this.service.CheckUser(this.User);
-    // console.log('Response: ', response);
 
-    console.log('Email, lozinka: ', this.inputEmail, this.inputPassword);
+    //console.log('Email, lozinka: ', inputEmail, inputPassword);
 
   }
 
