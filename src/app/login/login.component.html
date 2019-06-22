@@ -1,27 +1,35 @@
-<div class="container ">
+<div class="container">
   <div class="row">
     <div class="col-md-4" style="float: none; margin: 0 auto;">
-      <h1>Login </h1>
-        <form (ngSubmit)="onSubmit()" >
+      <h1>Login</h1>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="email">Email address</label>
+            <label for="emailInput">Email address</label>
             <input type="email" class="form-control" 
-            id="email" aria-describedby="emailHelp"
+            id="emailInput" aria-describedby="emailHelp"
             placeholder="Enter email"
-            ([ngModel])="inputEmail"
-            >
+            formControlName="email"
+            />
+            <span 
+            *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched"
+            class="help-block">Please enter a valid Email.</span>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="passwordInput">Password</label>
             <input type="password" 
-            class="form-control" id="password" 
+            class="form-control" id="passwordInput" 
             placeholder="Password"
-            ([ngModel])="inputPassword"
-            >
+            formControlName="password"
+            />
+            <span 
+            *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
+            class="help-block">Please enter a valid Password.</span>
           </div>
-          <button type="submit" class="btn btn-primary pull-right">Login</button>
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!loginForm.valid">Login</button>
         </form>
+
     </div>
   </div> 
 </div>
