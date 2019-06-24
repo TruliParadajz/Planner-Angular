@@ -31,6 +31,13 @@ export class LoginComponent implements OnInit {
     this.service.CheckUser(new User(0, '', '', userEmail, userPassword)). // pozivanje funkcije za provjeru korisnika iz baze
     subscribe( userResponse => {
       console.log('User response: ', userResponse);
+    }, error => {
+      if (error.status === 0) {
+        alert('Service is not available, contact your Internet Service Provider!');
+      } else {
+        console.log('Service error: ', error.error.Message);
+        alert(error.error.Message);
+      }
     });
 
     // console.log(this.loginForm);
