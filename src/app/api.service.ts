@@ -32,4 +32,10 @@ export class ApiService {
             return null;
         }
     }
+
+
+    GetUser(id: number): Observable<User> {
+        return this.http.get<User>(baseUrl + 'users/' + id);
+    }
+
 }

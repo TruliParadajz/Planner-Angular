@@ -1,0 +1,9 @@
+<div class="container" *ngIf="dataFetched">
+  <p>
+    profile works!
+  </p>
+  <p>NAME: {{ user.Name }}</p>
+  <p>SURNAME: {{ user.Surname }}</p>
+  <p>EMAIL: {{ user.Email }}</p>
+  <p>Tasks: {{ user.Tasks }} <span *ngIf="taskFlag">None</span></p>
+</div>

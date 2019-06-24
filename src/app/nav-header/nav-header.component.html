@@ -6,7 +6,9 @@
       <ul class="nav navbar-nav navbar-right">
         <li routerLinkActive="active" *ngIf="!isUserLogged"><a routerLink="/login">Login</a></li>
         <li routerLinkActive="active" *ngIf="!isUserLogged"><a routerLink="/register">Register</a></li>
-        <li routerLinkActive="active" *ngIf="isUserLogged" ><a routerLink="/" (click)="onLogout()">Logout</a></li>
+        <li routerLinkActive="active" *ngIf="isUserLogged"><a routerLink="/user">Dashboard</a></li>
+        <li routerLinkActive="active" *ngIf="isUserLogged" ><a routerLink="/profile">Profile</a></li>
+        <li routerLinkActive="active" *ngIf="isUserLogged" ><a routerLink="/logout" (click)="onLogout()">Logout</a></li>
       </ul>
     </div>
   </nav>
