@@ -15,7 +15,7 @@ export class NavHeaderComponent implements OnInit, DoCheck {
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
     }
-    //else {
+    // else {
     //   localStorage.setItem('login', 'false');
     //   this.isUserLogged = false;
     // }

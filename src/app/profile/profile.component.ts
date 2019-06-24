@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.onLoadProfile();
   }
-  
+
   ngDoCheck() {
     if (this.user) {
       this.dataFetched = true;
