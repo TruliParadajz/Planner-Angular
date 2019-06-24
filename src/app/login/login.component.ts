@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../Models/User';
 import { ApiService } from '../api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   // inputPassword: string;
   loginForm: FormGroup;
 
-  constructor(private service: ApiService) { }
+  constructor(private service: ApiService, private router: Router) { }
 
   ngOnInit() {
     // definiranje atributa unutar forme i njihove kontrole, validacije
@@ -38,12 +39,17 @@ export class LoginComponent implements OnInit {
         console.log('Service error: ', error.error.Message);
         alert(error.error.Message);
       }
-    });
-
+    }, () => {
+      this.router.navigate(['/user']);
+      localStorage.setItem('login', 'true');
+      console.log('Logger: ', localStorage.getItem('login'));
+    }
+    );
     // console.log(this.loginForm);
     // console.log('Email: ', this.loginForm.controls.email.value);
     // console.log('Password: ', this.loginForm.controls.password.value);
 
   }
+
 
 }
