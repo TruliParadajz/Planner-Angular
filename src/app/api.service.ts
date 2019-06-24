@@ -31,9 +31,5 @@ export class ApiService {
         } catch {
             return null;
         }
-
-
     }
-
-
 }
