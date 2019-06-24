@@ -9,11 +9,19 @@ import { NavHeaderComponent } from './nav-header/nav-header.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
+  { path: '', component: LoginComponent, pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent}
+  { path: 'register', component: RegisterComponent},
+  { path: 'user', component: UserDashboardComponent},
+  { path: 'profile', component: ProfileComponent },
+  { path: 'logout', redirectTo: '' },
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -21,7 +29,11 @@ const routes: Routes = [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    NavHeaderComponent
+    NavHeaderComponent,
+    UserDashboardComponent,
+    AdminDashboardComponent,
+    PageNotFoundComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -2,17 +2,22 @@
   <div class="row">
     <div class="col-md-4" style="float: none; margin: 0 auto;">
       <h1>Register </h1>
-      <div *ngIf="userExists">
-        <h3>User already exists</h3>
-      </div>
+        <div class="panel panel-success" *ngIf="successRegisterFlag">
+          <div class="panel-heading">
+            {{ successMessage }}
+          </div>
+        </div>
+
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="nameInput">First Name</label>
             <input type="text" class="form-control" id="nameInput" 
-            aria-describedby="emailHelp" placeholder="First Name" autocomplete="off"
-            formControlName="firstName"
+             placeholder="First Name" autocomplete="off"
+             formControlName="firstName"
             />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <span 
+            *ngIf="!registerForm.get('firstName').valid && registerForm.get('firstName').touched"
+            class="help-block">Please enter a valid First Name.</span>
           </div>
           <div class="form-group">
             <label for="surnameInput">Last Name</label>
@@ -20,6 +25,9 @@
             placeholder="Last Name" autocomplete="off"
             formControlName="lastName"
             />
+            <span 
+            *ngIf="!registerForm.get('lastName').valid && registerForm.get('lastName').touched"
+            class="help-block">Please enter a valid Last Name.</span>
           </div>
           <div class="form-group">
             <label for="emailInput">Email Address</label>
@@ -27,13 +35,21 @@
             placeholder="Email Address" autocomplete="off"
             formControlName="email"
             />
+            <span 
+            *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched"
+            class="help-block">Please enter a valid Email.</span>
           </div>
           <div class="form-group">
-            <label for="passwordInput">Password</label>
-            <input type="password" class="form-control" id="passwordInput" 
+            <label for="passwordInput">Password <span style="color: red;">*</span></label>
+            <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordDesc"
             placeholder="Password" autocomplete="off"
             formControlName="password" 
             />
+            <span 
+            *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched"
+            class="help-block">Please enter a valid Password.</span>
+            <small id="passwordDesc" class="form-text text-muted"><span style="color: red;">* 
+            </span>Password must contain between 5 and 15 characters.</small>
           </div>
           <div>
             <button type="submit" class="btn btn-primary pull-right" [disabled]="!registerForm.valid">Register</button>

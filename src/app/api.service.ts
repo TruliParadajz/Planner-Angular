@@ -31,9 +31,11 @@ export class ApiService {
         } catch {
             return null;
         }
-
-
     }
 
+
+    GetUser(id: number): Observable<User> {
+        return this.http.get<User>(baseUrl + 'users/' + id);
+    }
 
 }
