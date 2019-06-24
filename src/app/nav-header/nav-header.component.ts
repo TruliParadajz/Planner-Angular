@@ -25,11 +25,12 @@ export class NavHeaderComponent implements OnInit, DoCheck {
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
     }
-    console.log('Memory leak');
+    // console.log('Memory leak');
   }
 
   onLogout() {
     localStorage.setItem('login', 'false');
+    localStorage.removeItem('id');
     this.isUserLogged = false;
   }
 

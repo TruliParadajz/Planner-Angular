@@ -26,12 +26,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // definiranje konstanti za dohvaćanje vrijednosti email i password iz forme
+    let userID = 0;
     const userEmail = this.loginForm.controls.email.value;
     const userPassword = this.loginForm.controls.password.value;
 
     this.service.CheckUser(new User(0, '', '', userEmail, userPassword)). // pozivanje funkcije za provjeru korisnika iz baze
     subscribe( userResponse => {
       console.log('User response: ', userResponse);
+      userID = userResponse.Id;
     }, error => {
       if (error.status === 0) {
         alert('Service is not available, contact your Internet Service Provider!');
@@ -42,12 +44,10 @@ export class LoginComponent implements OnInit {
     }, () => {
       this.router.navigate(['/user']);
       localStorage.setItem('login', 'true');
+      localStorage.setItem('id', userID.toString());
       console.log('Logger: ', localStorage.getItem('login'));
     }
     );
-    // console.log(this.loginForm);
-    // console.log('Email: ', this.loginForm.controls.email.value);
-    // console.log('Password: ', this.loginForm.controls.password.value);
 
   }
 
