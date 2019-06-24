@@ -11,12 +11,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'user', component: UserDashboardComponent}
+  { path: 'user', component: UserDashboardComponent},
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const routes: Routes = [
     LoginComponent,
     NavHeaderComponent,
     UserDashboardComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
