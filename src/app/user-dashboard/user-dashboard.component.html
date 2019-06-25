@@ -1,14 +1,32 @@
 <div class="container">
-  <div class="col-md-5">
-    <ul class="list-group list-group-flush">
-      <h2 class="titles">Tasks:</h2>
-      <li class="list-group-item" *ngFor="let task of tasks; let i = index">
-        {{task.Text}}
+  <div class="col-md-10">
+    <h2 class="titles">Tasks:</h2>
+    <br>
+    <div class="modal-body row" *ngFor="let task of tasks; let i = index">
+      <div class="col-md-4">
+        <h4 class="titles">{{task.Text}}</h4>
         <ul>
           <li>Date: {{task.Date}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
-      </li>
-    </ul>
+      </div>
+      <div class="col-md-4">        
+        <div *ngIf="!editFlags[i]">
+            <br><br>
+            <button type="button" class="btn btn-primary" (click)="editTask(task.Id, i)">Edit task</button>
+        </div>        
+        <div *ngIf="editFlags[i]">
+
+            <div class="form-group">
+              <label for="usr">Text:</label><input type="text" class="form-control" id="usr" placeholder="Enter task text">              
+              <label class="custom-control-label" for="customCheck1">Solved:   </label>
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+              
+            </div>
+            
+          <button type="button" class="btn btn-primary" (click)="saveTask(i)">Save task</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

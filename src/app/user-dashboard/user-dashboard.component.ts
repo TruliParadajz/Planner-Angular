@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { User } from '../Models/User';
 import { Task } from '../Models/Task';
 import { ApiService } from '../api.service';
@@ -8,23 +8,18 @@ import { ApiService } from '../api.service';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, DoCheck {
   tasks: Task[];
   user: User;
   taskFlag = false;
   dataFetched = false;
+  editFlags: boolean[] = [];
 
   constructor(private service: ApiService) { }
 
   ngOnInit() {
     this.onLoadDashboard();
-  }
-  
-  ngDoCheck() {
-    if (this.user) {
-      this.dataFetched = true;
-    }
-  }
+  }  
 
   onLoadDashboard() {
     const id = +localStorage.getItem('id');
@@ -40,9 +35,25 @@ export class UserDashboardComponent implements OnInit {
           Email: data.Email,
           Tasks: data.Tasks
         };
-        this.tasks = data.Tasks;
+        this.tasks = data.Tasks;             
         console.log(this.tasks);
       }
     );
   }
+
+  ngDoCheck() {
+    if (this.user) {
+      this.dataFetched = true;
+    }
+  }
+
+  editTask(taskId: number, i: number){
+    console.log(taskId);
+    this.editFlags[i] = true;
+  }
+
+  saveTask(i: number){
+    this.editFlags[i] = false;
+  }
+
 }
