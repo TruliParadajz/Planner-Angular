@@ -12,6 +12,8 @@ export class NavHeaderComponent implements OnInit, DoCheck {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    localStorage.setItem('login', 'false');
+    localStorage.removeItem('id');
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
     }
@@ -24,10 +26,11 @@ export class NavHeaderComponent implements OnInit, DoCheck {
   ngDoCheck() {
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
-    } else {
-      this.isUserLogged = false;
-      this.router.navigate(['/login']);
     }
+    // else {
+    //   this.isUserLogged = false;
+    //   this.router.navigate(['/login']);
+    // }
     // console.log('Memory leak');
   }
 
