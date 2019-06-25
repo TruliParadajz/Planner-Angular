@@ -2,10 +2,13 @@
   <div class="col-md-5">
     <ul class="list-group list-group-flush">
       <h2 class="titles">Tasks:</h2>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Morbi leo risus</li>
-      <li class="list-group-item">Porta ac consectetur ac</li>
-      <li class="list-group-item">Vestibulum at eros</li>
+      <li class="list-group-item" *ngFor="let task of tasks; let i = index">
+        {{task.Text}}
+        <ul>
+          <li>Date: {{task.Date}}</li>
+          <li>Solved: {{task.Solved}}</li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
