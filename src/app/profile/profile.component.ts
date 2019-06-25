@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit, DoCheck {
           Email: data.Email,
           Tasks: data.Tasks
         };
+        console.log("Tasks:");
+        console.log(data.Tasks);
       }
     );
   }

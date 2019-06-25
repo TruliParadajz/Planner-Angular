@@ -37,5 +37,4 @@ export class ApiService {
     GetUser(id: number): Observable<User> {
         return this.http.get<User>(baseUrl + 'users/' + id);
     }
-
 }
