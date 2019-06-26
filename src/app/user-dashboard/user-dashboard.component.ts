@@ -17,6 +17,7 @@ export class UserDashboardComponent implements OnInit, DoCheck {
   dataFetched = false;
   editFlags: boolean[] = [];
   taskEditForm: FormGroup;
+  date: Date;
 
   constructor(private service: ApiService) { }
 
@@ -84,6 +85,10 @@ export class UserDashboardComponent implements OnInit, DoCheck {
         alert('Task successfully updated!');
       });
     this.editFlags[i] = false;
+  }
+  
+  onTestDate() {
+    console.log('Date to save:', this.date);
   }
 
 }
