@@ -7,23 +7,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-header.component.css']
 })
 export class NavHeaderComponent implements OnInit, DoCheck {
-  isUserLogged = false;
+ isUserLogged = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    localStorage.setItem('login', 'false');
+    localStorage.removeItem('id');
+
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
     }
-    //else {
-    //   localStorage.setItem('login', 'false');
-    //   this.isUserLogged = false;
-    // }
+
   }
 
   ngDoCheck() {
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
+    } else {
+      this.isUserLogged = false;
     }
     // console.log('Memory leak');
   }

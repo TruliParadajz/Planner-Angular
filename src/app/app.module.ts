@@ -13,15 +13,16 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile/profile.component';
+import { Guard } from './guard.service';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full'},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'user', component: UserDashboardComponent},
-  { path: 'profile', component: ProfileComponent },
-  { path: 'logout', redirectTo: '' },
-  { path: '**', component: PageNotFoundComponent}
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'user', component: UserDashboardComponent, canActivate: [Guard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [Guard] },
+  { path: 'logout', redirectTo: '/login' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -42,7 +43,7 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [Guard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -37,4 +37,23 @@ export class ApiService {
     GetUser(id: number): Observable<User> {
         return this.http.get<User>(baseUrl + 'users/' + id);
     }
+
+    UpdateUser(id: number, password: string): Observable<string> {
+        try {
+            const response = this.http.put<string>(baseUrl + 'users/' + id + '/' + password, {});
+            return response;
+        } catch {
+            return null;
+        }
+    }
+
+    DeleteUser(id: number): Observable<string> {
+        try {
+            const response = this.http.delete<string>(baseUrl + 'users/' + id, {});
+            return response;
+        } catch {
+            return null;
+        }
+    }
+
 }

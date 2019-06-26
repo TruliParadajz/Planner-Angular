@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { User } from '../Models/User';
 import { Task } from '../Models/Task';
 import { ApiService } from '../api.service';
@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, DoCheck {
   tasks: Task[];
   user: User;
   taskFlag = false;
@@ -19,7 +19,7 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit() {
     this.onLoadDashboard();
   }
-  
+
   ngDoCheck() {
     if (this.user) {
       this.dataFetched = true;
