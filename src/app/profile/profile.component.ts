@@ -4,16 +4,6 @@ import { User } from '../Models/User';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// export interface User {
-//   Id?: number;
-//   Name?: string;
-//   Surname?: string;
-//   Email?: string;
-//   Password?: string;
-//   Role?: string;
-//   Tasks?: Task[];
-// }
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -103,8 +93,9 @@ export class ProfileComponent implements OnInit, DoCheck {
       alert('User successfully removed!');
       setTimeout(() => {
         this.router.navigate(['/login']);
-        localStorage.setItem('login', 'false');
-      }, 5000);
+        localStorage.removeItem('login');
+        localStorage.removeItem('id');
+      }, 2000);
     });
   }
 
