@@ -15,6 +15,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProfileComponent } from './profile/profile.component';
 import { Guard } from './guard.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
@@ -34,14 +38,17 @@ const routes: Routes = [
     UserDashboardComponent,
     AdminDashboardComponent,
     PageNotFoundComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CalendarModule,
+    FormsModule
   ],
   providers: [Guard],
   bootstrap: [AppComponent]
