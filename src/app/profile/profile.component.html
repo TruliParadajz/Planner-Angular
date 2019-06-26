@@ -1,9 +1,52 @@
-<div class="container" *ngIf="dataFetched">
+<!-- <div class="container" *ngIf="dataFetched">
   <p>
     profile works!
-  </p>
-  <p>NAME: {{ user.Name }}</p>
-  <p>SURNAME: {{ user.Surname }}</p>
-  <p>EMAIL: {{ user.Email }}</p>
-  <p>Tasks: {{ user.Tasks }} <span *ngIf="taskFlag">None</span></p>
+  </p> -->
+
+
+<div class="container" *ngIf="dataFetched">
+<!-- <div class="row"> -->
+  <div class="col-md-5">
+    <p>NAME: {{ user.Name }}</p>
+    <p>SURNAME: {{ user.Surname }}</p>
+    <p>EMAIL: {{ user.Email }}</p>
+  
+    <form [formGroup]="userEditForm" (ngSubmit)="onUpdateUser()" *ngIf="editFlag">
+      <div class="form-group">
+        <label for="passwordInput">New Password <span style="color: red;">*</span></label>
+        <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordDesc"
+        placeholder="Password" autocomplete="off"
+        formControlName="password" 
+        />
+        <span 
+        *ngIf="!userEditForm.get('password').valid && userEditForm.get('password').touched"
+        class="help-block">Please enter a new Password.</span>
+        <small id="passwordDesc" class="form-text text-muted"><span style="color: red;">* 
+        </span>Password must contain between 5 and 15 characters.</small>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="!userEditForm.valid">Save</button>
+      </div>
+    </form>   
+    
+    <!-- <div>Tasks: 
+        <ul *ngFor="let task of user.Tasks">
+          <li>
+              {{ task.Text }}
+          </li>
+        </ul>
+        <span *ngIf="taskFlag">None</span>
+      </div> -->
+    <div > 
+      <div class="row">
+          <button type="button" class="btn btn-danger pull-left" (click)="onDeleteUser()">Remove Account</button>
+          <button type="button" class="btn btn-primary pull-right" [disabled]="editFlag" (click)="onEditPress()">Edit</button>
+      </div>
+    </div>
+    
+  </div>
+<!-- </div> -->
 </div>
+  
+
+<!-- </div> -->
