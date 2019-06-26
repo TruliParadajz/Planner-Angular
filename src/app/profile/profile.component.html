@@ -1,11 +1,6 @@
-<!-- <div class="container" *ngIf="dataFetched">
-  <p>
-    profile works!
-  </p> -->
 
 
 <div class="container" *ngIf="dataFetched">
-<!-- <div class="row"> -->
   <div class="col-md-5">
     <p>NAME: {{ user.Name }}</p>
     <p>SURNAME: {{ user.Surname }}</p>
@@ -23,12 +18,12 @@
         class="help-block">Please enter a new Password.</span>
         <small id="passwordDesc" class="form-text text-muted"><span style="color: red;">* 
         </span>Password must contain between 5 and 15 characters.</small>
-      </div>
-      <div>
-        <button type="submit" class="btn btn-primary pull-right" [disabled]="!userEditForm.valid">Save</button>
+        <div>
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!userEditForm.valid">Save</button>
+        </div>
       </div>
     </form>   
-    
+    <br><br>
     <!-- <div>Tasks: 
         <ul *ngFor="let task of user.Tasks">
           <li>
@@ -38,15 +33,12 @@
         <span *ngIf="taskFlag">None</span>
       </div> -->
     <div > 
-      <div class="row">
+      <div class="row" style="margin: 3px;">
           <button type="button" class="btn btn-danger pull-left" (click)="onDeleteUser()">Remove Account</button>
           <button type="button" class="btn btn-primary pull-right" [disabled]="editFlag" (click)="onEditPress()">Edit</button>
       </div>
     </div>
     
   </div>
-<!-- </div> -->
 </div>
   
-
-<!-- </div> -->

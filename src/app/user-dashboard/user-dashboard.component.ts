@@ -13,6 +13,7 @@ export class UserDashboardComponent implements OnInit, DoCheck {
   user: User;
   taskFlag = false;
   dataFetched = false;
+  date: Date;
 
   constructor(private service: ApiService) { }
 
@@ -45,4 +46,9 @@ export class UserDashboardComponent implements OnInit, DoCheck {
       }
     );
   }
+
+  onTestDate() {
+    console.log('Date to save:', this.date);
+  }
+
 }
