@@ -1,15 +1,41 @@
 <div class="container">
-  <div class="col-md-5">
-    <ul class="list-group list-group-flush">
-      <h2 class="titles">Tasks:</h2>
-      <li class="list-group-item" *ngFor="let task of tasks; let i = index">
-        {{task.Text}}
+  <div class="col-md-10">
+    <h2 class="titles">Tasks:</h2>
+    <br>
+    <div class="modal-body row" *ngFor="let task of tasks; let i = index">
+      <div class="col-md-4">
+        <h4 class="titles">{{task.Text}}</h4>
         <ul>
           <li>Date: {{task.Date}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
-      </li>
-    </ul>
+      </div>
+      <div class="col-md-4">        
+        <div *ngIf="!editFlags[i]">
+            <br><br>
+            <button type="button" class="btn btn-primary" (click)="editTask(task.Id, i)">Edit task</button>
+        </div>        
+        <div *ngIf="editFlags[i]">
+            <form [formGroup]="taskEditForm" (ngSubmit)="saveTask(task.Id, i)">
+
+            <div class="form-group">
+
+              <label for="usr">Text:</label>
+              <input type="text" class="form-control" id="taskText" placeholder="Enter task text" formControlName="text" >              
+              <label class="custom-control-label" for="customCheck1">Solved:   </label>
+              <input type="checkbox" class="form-control" id="taskSolved" formControlName="solved" >
+              <!-- <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field> -->  
+
+            </div>
+            <button type="submit" class="btn btn-primary">Save task</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="ui-g-12 ui-md-4">
     <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
