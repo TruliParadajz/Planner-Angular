@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
     // console.log('Register values: ', this.registerForm.value);
 
-    this.service.CreateUser(new User(0, name, surname, mail, pass))
+    this.service.CreateUser(new User(0, name, surname, mail, pass, 'user'))
     .subscribe(registerResponse => {
       // if (registerResponse === null) {
       //   this.userExists = true;

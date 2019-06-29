@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // definiranje konstanti za dohvaćanje vrijednosti email i password iz forme
     let userID = 0;
+    let userRole = '';
     const userEmail = this.loginForm.controls.email.value;
     const userPassword = this.loginForm.controls.password.value;
 
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
     subscribe( userResponse => {
       console.log('User response: ', userResponse);
       userID = userResponse.Id;
+      userRole = userResponse.Role;
     }, error => {
       if (error.status === 0) {
         alert('Service is not available, contact your Internet Service Provider!');
@@ -42,7 +44,13 @@ export class LoginComponent implements OnInit {
         alert(error.error.Message);
       }
     }, () => {
-      this.router.navigate(['/user']);
+      if (userRole === 'admin') {
+        this.router.navigate(['/admin']);
+        localStorage.setItem('role', 'admin');
+      } else {
+        this.router.navigate(['/user']);
+        localStorage.setItem('role', 'user');
+      }
       localStorage.setItem('login', 'true');
       localStorage.setItem('id', userID.toString());
       console.log('Logger: ', localStorage.getItem('login'));

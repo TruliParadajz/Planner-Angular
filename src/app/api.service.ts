@@ -57,17 +57,13 @@ export class ApiService {
         }
     }
 
-    UpdateTask(task: Task): Observable<Task>
-    {
+    UpdateTask(task: Task): Observable<Task> {
         const header = new HttpHeaders();
         header.set('Content-Type', 'application/json');
-        try
-        {
+        try {
             const response = this.http.put<Task>(baseUrl + 'tasks', task);
             return response;
-        }
-        catch
-        {
+        } catch {
             return null;
         }
     }
