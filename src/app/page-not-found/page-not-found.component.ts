@@ -13,9 +13,10 @@ export class PageNotFoundComponent implements OnInit {
   ngOnInit() {
   }
 
-  backToLogin()
-  {
+  backToLogin() {
     this.router.navigate(['/login']);
     localStorage.setItem('login', 'false');
+    localStorage.removeItem('id');
+    localStorage.removeItem('role');
   }
 }

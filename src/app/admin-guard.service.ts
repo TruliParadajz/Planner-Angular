@@ -3,13 +3,12 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Guard implements CanActivate {
+export class AdminGuard implements CanActivate {
     constructor(private router: Router) {}
 
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-        const isLogged = localStorage.getItem('login');
-        console.log('Is logged in:', isLogged);
-        if (isLogged === 'true') {
+        const isAdmin = localStorage.getItem('role');
+        if (isAdmin === 'admin') {
             return true;
         } else {
             this.router.navigate(['/login']);
