@@ -18,12 +18,14 @@ import { Guard } from './guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
+import { AdminGuard } from './admin-guard.service';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user', component: UserDashboardComponent, canActivate: [Guard] },
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [Guard, AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [Guard] },
   { path: 'logout', redirectTo: '/login' },
   { path: '**', component: PageNotFoundComponent }
@@ -50,7 +52,7 @@ const routes: Routes = [
     CalendarModule,
     FormsModule
   ],
-  providers: [Guard],
+  providers: [Guard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
