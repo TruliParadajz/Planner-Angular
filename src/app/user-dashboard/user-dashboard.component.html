@@ -6,41 +6,61 @@
       <div class="col-md-4">
         <h4 class="titles">{{task.Text}}</h4>
         <ul>
-          <li>Date: {{task.Date}}</li>
+          <li>Date: {{task.Date | date: "dd.MM.yyyy"}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
       </div>
-      <div class="col-md-4">        
+      <div class="col-md-4">
         <div *ngIf="!editFlags[i]">
-            <br><br>
-            <button type="button" class="btn btn-primary" (click)="editTask(task.Id, i)">Edit task</button>
-        </div>        
+          <br><br>
+          <button type="button" class="btn btn-primary" (click)="editTask(task.Id, i)">Edit task</button>
+          &nbsp; <button *ngIf="!editFlags[i]" type="button" class="btn btn btn-danger"
+            (click)="deleteTask(task.Id)">Delete task</button>
+        </div>
         <div *ngIf="editFlags[i]">
-            <form [formGroup]="taskEditForm" (ngSubmit)="saveTask(task.Id, i)">
+          <form [formGroup]="taskEditForm" (ngSubmit)="saveTask(task.Id, i)">
 
             <div class="form-group">
 
-              <label for="usr">Text:</label>
-              <input type="text" class="form-control" id="taskText" placeholder="Enter task text" formControlName="text" >              
-              <label class="custom-control-label" for="customCheck1">Solved:   </label>
-              <input type="checkbox" class="form-control" id="taskSolved" formControlName="solved" >
-              <!-- <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field> -->  
+              <label>Text:</label>
+              <input type="text" class="form-control" id="taskText" placeholder="Enter task text"
+                formControlName="text">
+              <br>
+                <div class="row">
+                  <label class="checkbox-inline">Solved:</label>
+                  <input type="checkbox" class="form-control" id="taskSolved" formControlName="solved">
+                </div>
 
+              <div>
+                <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="date" [showIcon]="true"></p-calendar>
+              </div>
             </div>
+            <br>
             <button type="submit" class="btn btn-primary">Save task</button>
           </form>
         </div>
       </div>
     </div>
-  </div>
-  <div class="ui-g-12 ui-md-4">
-    <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
     <br>
-    <button type="button" class="btn btn-primary pull-left" (click)="onTestDate()">Save</button>
-</div>
+    <button *ngIf="!addTaskFlag" type="submit" class="btn btn-success" (click)="newTask()">New task</button>
+    <div *ngIf="addTaskFlag" class="col-md-4">
+
+      <div class="form-group">
+
+        <label for="usr">Text:</label>
+        <input value="" type="text" class="form-control" placeholder="Enter task text" [(ngModel)]="newText">
+        <br>
+        <label class="custom-control-label" for="customCheck1">Solved:</label>
+        <input value="false" type="checkbox" class="form-control" [(ngModel)]="newSolved">
+        <div>
+          <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="newDate" [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary" (click)="addTask(newText, newSolved, newDate)">Add task</button>
+
+    </div>
+  </div>
+
 
 </div>
