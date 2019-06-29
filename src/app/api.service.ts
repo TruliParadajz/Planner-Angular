@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './Models/User';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Task } from './Models/Task';
 
 const baseUrl = 'http://localhost:60424/api/';
 
@@ -50,6 +51,17 @@ export class ApiService {
     DeleteUser(id: number): Observable<string> {
         try {
             const response = this.http.delete<string>(baseUrl + 'users/' + id, {});
+            return response;
+        } catch {
+            return null;
+        }
+    }
+
+    UpdateTask(task: Task): Observable<Task> {
+        const header = new HttpHeaders();
+        header.set('Content-Type', 'application/json');
+        try {
+            const response = this.http.put<Task>(baseUrl + 'tasks', task);
             return response;
         } catch {
             return null;
