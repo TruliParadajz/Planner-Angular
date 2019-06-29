@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { AdminGuard } from './admin-guard.service';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -50,7 +51,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CalendarModule,
-    FormsModule
+    FormsModule,
+    ProgressBarModule
   ],
   providers: [Guard, AdminGuard],
   bootstrap: [AppComponent]

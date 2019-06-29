@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class NavHeaderComponent implements OnInit, DoCheck {
  isUserLogged = false;
+ isAdmin = false;
 
   constructor(private router: Router) { }
 
@@ -19,14 +20,26 @@ export class NavHeaderComponent implements OnInit, DoCheck {
       this.isUserLogged = true;
     }
 
+    if (localStorage.getItem('role') === 'admin') {
+      this.isAdmin = true;
+    }
   }
 
   ngDoCheck() {
+    // provjera za prijavu
     if (localStorage.getItem('login') === 'true') {
       this.isUserLogged = true;
     } else {
       this.isUserLogged = false;
     }
+
+    // provjera za admina
+    if (localStorage.getItem('role') === 'admin') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
     // console.log('Memory leak');
   }
 
