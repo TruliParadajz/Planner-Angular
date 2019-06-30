@@ -42,4 +42,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
+  testClick() {
+    console.log('Clicked');
+  }
+
 }

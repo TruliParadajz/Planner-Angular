@@ -28,8 +28,12 @@
             class="help-block">Please enter a valid Password.</span>
           </div>
           <button type="submit" class="btn btn-primary pull-right" [disabled]="!loginForm.valid">Login</button>
+          <br>
+          <div class="form-group" *ngIf="!isUserLogged">
+            <h3>Loading...</h3>
+            <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+          </div>
         </form>
-
     </div>
   </div> 
 </div>
