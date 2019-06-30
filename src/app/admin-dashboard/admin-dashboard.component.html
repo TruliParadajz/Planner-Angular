@@ -1,12 +1,14 @@
 
 <br>
-<div class="container" *ngIf="!usersLoaded">
+<div class="container col-md-5" *ngIf="!usersLoaded" style="float: none; margin: 0 auto;">
   <h3>Loading...</h3>
     <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </div>
-<div class="container" *ngIf="usersLoaded">
+<div class="container col-md-5" *ngIf="usersLoaded" style="float: none; margin: 0 auto;">
   <ul class="list-group" *ngFor="let user of users; let i = index">
-    <li class="list-group-item">{{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }}</li>
+    <div class="listBorder" (click)="testClick()">
+     {{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }}
+    </div>
   </ul>
 </div>
 
