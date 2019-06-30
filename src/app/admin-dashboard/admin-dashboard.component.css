@@ -7,4 +7,5 @@
 .listBorder:hover {
  font-weight: bold;
  background-color: rgb(68, 165, 255);
+ cursor: pointer;
 }
