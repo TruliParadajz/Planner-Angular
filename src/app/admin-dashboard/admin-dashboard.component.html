@@ -7,16 +7,18 @@
 
 <div class="container col-md-5" *ngIf="usersLoaded" style="float: none; margin: 0 auto;">
   <ul class="list-group" *ngFor="let user of users; let i = index">
-    <div class="listBorder" (click)="showTasks(user[i].Id, i)">
-     {{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }}
+    <div class="listBorder" (click)="user[i].Role !== 'admin' && showTasks(user[i].Id, i)" >
+     {{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }} {{ user[i].Role === 'admin' ? '- Admin' : '' }}
     </div>
     <div *ngIf="tasksFlag[i]">
 
         <div class="modal-body row" *ngFor="let task of tasks; let j = index">
             <div class="col-md-4">
-              <h4  [ngStyle]="{'text-decoration': task.Solved === true ? line-through : none}">{{task.Text}}</h4>
+              <h4 [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">{{task.Text}}</h4>
               <ul>
-                <li>Date: {{task.Date | date: "dd.MM.yyyy"}}</li>
+                <li [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}" >
+                  Date: {{task.Date | date: "dd.MM.yyyy"}}
+                </li>
                 <li>Solved: {{task.Solved}}</li>
               </ul>
             </div>
