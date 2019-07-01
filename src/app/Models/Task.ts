@@ -6,4 +6,12 @@ export class Task {
     Date: Date;
     UserId: number;
     User: User;
+
+    constructor(text?: string, solved?: boolean, date?: Date,
+        userId?: number) {
+        this.Text = text;
+        this.Solved = solved;
+        this.Date = date;
+        this.UserId = userId;
+}
 }

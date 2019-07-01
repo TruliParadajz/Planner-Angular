@@ -4,6 +4,7 @@ import { User } from '../Models/User';
 import { Task } from '../Models/Task';
 import { ApiService } from '../api.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -18,8 +19,13 @@ export class UserDashboardComponent implements OnInit, DoCheck {
   editFlags: boolean[] = [];
   taskEditForm: FormGroup;
   date: Date;
+  addTaskFlag = false;
+  taskTemp: Task;
+  newText: string;
+  newSolved: boolean;
+  newDate: Date;
 
-  constructor(private service: ApiService) { }
+  constructor(private service: ApiService, private router:Router) { }
 
   ngOnInit() {
     this.onLoadDashboard();
@@ -27,6 +33,8 @@ export class UserDashboardComponent implements OnInit, DoCheck {
       text: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(15)])),
       solved: new FormControl(false)
     });   
+    this.newText = '';
+    this.newSolved = false;
   }  
 
   onLoadDashboard() {
@@ -61,15 +69,21 @@ export class UserDashboardComponent implements OnInit, DoCheck {
     this.editFlags[i] = true;
     this.taskEditForm.patchValue({text: this.tasks[i].Text});
     this.taskEditForm.patchValue({solved: this.tasks[i].Solved});
+    console.log(this.tasks[i].Date);
+    this.date = new Date(this.tasks[i].Date);
   }
 
   saveTask(taskId: number, i: number)
   {
     const newText = this.taskEditForm.controls.text.value;
     const newSolved = this.taskEditForm.controls.solved.value;
+    const newDate = this.date;
+
+    console.log(newDate.toLocaleDateString());
 
     this.tasks[i].Text = newText;
     this.tasks[i].Solved = newSolved;
+    this.tasks[i].Date = newDate;
 
     this.service.UpdateTask(this.tasks[i]).subscribe(
       () => {
@@ -86,9 +100,66 @@ export class UserDashboardComponent implements OnInit, DoCheck {
       });
     this.editFlags[i] = false;
   }
-  
-  onTestDate() {
-    console.log('Date to save:', this.date);
+
+  deleteTask(taskId: number)
+  {
+    this.service.DeleteTask(taskId).subscribe(
+      () => 
+      {
+        console.log('User update');
+      }, 
+      error => 
+      {
+        if (error.status === 0) 
+        {
+          alert('Service is not available, contact your Internet Service Provider!');
+        } 
+        else 
+        {
+          console.log('Service error: ', error.error.Message);
+          alert(error.error.Message);
+        }
+      }, 
+      () => 
+      {
+        alert('Task successfully deleted!');
+        this.ngOnInit();
+      });
+      
+  }
+  newTask()
+  {
+    this.addTaskFlag = true;
+  }
+  addTask(newText, newSolved, newDate)
+  {
+    console.log(newText, newSolved, newDate);
+    const userID = +localStorage.getItem('id');
+
+    this.service.CreateTask(new Task(newText, newSolved, newDate, userID)).subscribe(
+      () => 
+      {
+        console.log('Create task');
+      }, 
+      error => 
+      {
+        if (error.status === 0) 
+        {
+          alert('Service is not available, contact your Internet Service Provider!');
+        } 
+        else 
+        {
+          console.log('Service error: ', error.error.Message);
+          alert(error.error.Message);
+        }
+      }, 
+      () => 
+      {
+        alert('Task successfully created!');
+        this.ngOnInit();
+      });
+
+      this.addTaskFlag = false;
   }
 
 }

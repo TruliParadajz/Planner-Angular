@@ -1,42 +1,34 @@
-
-
 <div class="container" *ngIf="dataFetched">
-  <div class="col-md-5">
-    <p>NAME: {{ user.Name }}</p>
-    <p>SURNAME: {{ user.Surname }}</p>
-    <p>EMAIL: {{ user.Email }}</p>
-  
+  <div class="col-md-10">
+    <h2>User credentials:</h2><br>
+    <h4 class="profileBold">NAME: <span class="notBold">{{ user.Name }}</span></h4>
+    <h4 class="profileBold">SURNAME: <span class="notBold">{{ user.Surname }}</span></h4>
+    <h4 class="profileBold">EMAIL: <span class="notBold">{{ user.Email }}</span></h4>
+
+    
     <form [formGroup]="userEditForm" (ngSubmit)="onUpdateUser()" *ngIf="editFlag">
       <div class="form-group">
         <label for="passwordInput">New Password <span style="color: red;">*</span></label>
-        <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordDesc"
+        <input style="width: 30%" type="password" class="form-control" id="passwordInput" aria-describedby="passwordDesc"
         placeholder="Password" autocomplete="off"
-        formControlName="password" 
-        />
+        formControlName="password"/>
         <span 
         *ngIf="!userEditForm.get('password').valid && userEditForm.get('password').touched"
         class="help-block">Please enter a new Password.</span>
         <small id="passwordDesc" class="form-text text-muted"><span style="color: red;">* 
         </span>Password must contain between 5 and 15 characters.</small>
-        <div>
+        <br><br>
+        <div class="col-md-4">
           <button type="submit" class="btn btn-primary pull-right" [disabled]="!userEditForm.valid">Save</button>
         </div>
       </div>
-    </form>   
+    </form>
+    
     <br><br>
-    <!-- <div>Tasks: 
-        <ul *ngFor="let task of user.Tasks">
-          <li>
-              {{ task.Text }}
-          </li>
-        </ul>
-        <span *ngIf="taskFlag">None</span>
-      </div> -->
-    <div > 
-      <div class="row" style="margin: 3px;">
-          <button type="button" class="btn btn-danger pull-left" (click)="onDeleteUser()">Remove Account</button>
-          <button type="button" class="btn btn-primary pull-right" [disabled]="editFlag" (click)="onEditPress()">Edit</button>
-      </div>
+    <div class="row" style="margin: 1px;">
+        <button type="button" class="btn btn-danger pull-left" (click)="onDeleteUser()">Remove Account</button>
+        &nbsp; &nbsp; 
+        <button type="button" class="btn btn-primary" [disabled]="editFlag" (click)="onEditPress()">Edit</button>
     </div>
     
   </div>

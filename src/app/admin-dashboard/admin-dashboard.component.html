@@ -1,12 +1,89 @@
-
 <br>
-<div class="container" *ngIf="!usersLoaded">
+<div class="container col-md-5" *ngIf="!usersLoaded" style="float: none; margin: 0 auto;">
   <h3>Loading...</h3>
-    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
-</div>
-<div class="container" *ngIf="usersLoaded">
-  <ul class="list-group" *ngFor="let user of users; let i = index">
-    <li class="list-group-item">{{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }}</li>
-  </ul>
+  <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </div>
 
+<div class="container col-md-5" *ngIf="usersLoaded" style="float: none; margin: 0 auto;">
+  <ul class="list-group" *ngFor="let user of users; let i = index">
+    <div class="listBorder" (click)="user[i].Role !== 'admin' && showTasks(user[i].Id, i)">
+      {{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }} {{ user[i].Role === 'admin' ? '- Admin' : '' }}
+    </div>
+    <div *ngIf="tasksFlag[i]">
+
+      <div class="modal-body row" *ngFor="let task of tasks; let j = index">
+        <div class="col-md-5">
+          <h4 [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">{{task.Text}}</h4>
+          <ul>
+            <li>
+              Date: {{task.Date | date: "dd.MM.yyyy"}}
+            </li>
+            <li>Solved: {{task.Solved}}</li>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <div *ngIf="!editFlags[j]">
+            <br><br>
+            <button type="button" class="btn btn-primary" (click)="editTask(task.Id, j)">Edit task</button>
+            &nbsp; <button *ngIf="!editFlags[j]" type="button" class="btn btn btn-danger"
+              (click)="deleteTask(task.Id)">Delete task</button>
+          </div>
+          <div *ngIf="editFlags[j]">
+            <form [formGroup]="taskEditForm" (ngSubmit)="saveTask(task.Id, j)">
+
+              <div class="form-group">
+
+                <label>Text:</label>
+                <input type="text" class="form-control" id="taskText" placeholder="Enter task text"
+                  formControlName="text">
+                <br>
+                <div class="inline-block">
+                  <label>Solved: </label>&nbsp;
+                  <input class="verticalAlign" type="checkbox" id="taskSolved" formControlName="solved">
+                </div>
+
+                <div>
+                  <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Save task</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+    <div class="container">
+    <div *ngIf="tasksFlag[i]">
+      <button *ngIf="!addTaskFlag" type="submit" class="btn btn-success" (click)="newTask()">New task</button>
+      <div *ngIf="addTaskFlag" class="col-md-5">
+
+        <div class="form-group">
+
+          <label for="usr">Text:</label>
+          <input value="" type="text" class="form-control" placeholder="Enter task text" [(ngModel)]="newText">
+          <br>
+          <div class="inline-block">
+            <label>Solved: </label>&nbsp;
+            <input value="false" class="verticalAlign" type="checkbox" [(ngModel)]="newSolved">
+          </div>
+          <div>
+            <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="newDate" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="addTask(newText, newSolved, newDate, user[i].Id)" [disabled]="!newDate || !newText">Add
+          task</button>
+
+      </div>
+    </div>
+  </div>
+
+  </ul>
+
+
+
+</div>
