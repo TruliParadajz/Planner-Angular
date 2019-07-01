@@ -60,7 +60,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
-  showTasks(userId: number, i: number) {
+  showTasks(userId: number, i: number) {   
+    this.addTaskFlag = false; 
     for (let j = 0; j < this.usersLength; j++) {
       this.tasksFlag[j] = false;
     }
