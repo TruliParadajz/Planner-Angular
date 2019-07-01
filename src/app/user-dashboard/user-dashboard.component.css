@@ -1,0 +1,12 @@
+.verticalAlign {
+    float: none;
+    padding: 10px 10px 10px 10px;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 0 auto !important;
+    cursor: pointer;
+    transform: scale(1.4);
+}
+label {
+    font-size: 110%;
+}

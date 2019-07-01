@@ -6,7 +6,8 @@
       <div class="col-md-4">
         <h4 class="titles" [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">{{task.Text}}</h4>
         <ul>
-          <li [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">Date: {{task.Date | date: "dd.MM.yyyy"}}</li>
+          <li>Date:
+            {{task.Date | date: "dd.MM.yyyy"}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
       </div>
@@ -26,11 +27,11 @@
               <input type="text" class="form-control" id="taskText" placeholder="Enter task text"
                 formControlName="text">
               <br>
-                <div class="row">
-                  <label class="checkbox-inline">Solved:</label>
-                  <input type="checkbox" class="form-control" id="taskSolved" formControlName="solved">
-                </div>
-
+              <div class="inline-block">
+                <label>Solved: </label>&nbsp;
+                <input class="verticalAlign" type="checkbox" id="taskSolved" formControlName="solved">
+              </div>
+              <br>
               <div>
                 <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="date" [showIcon]="true"></p-calendar>
               </div>
@@ -50,14 +51,16 @@
         <label for="usr">Text:</label>
         <input value="" type="text" class="form-control" placeholder="Enter task text" [(ngModel)]="newText">
         <br>
-        <label class="custom-control-label" for="customCheck1">Solved:</label>
-        <input value="false" type="checkbox" class="form-control" [(ngModel)]="newSolved">
+        <div class="inline-block">
+          <label>Solved: </label>&nbsp;
+          <input value="false" class="verticalAlign" type="checkbox" [(ngModel)]="newSolved">
+        </div>
         <div>
           <p-calendar [ngModelOptions]="{standalone: true}" [(ngModel)]="newDate" [showIcon]="true"></p-calendar>
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary" (click)="addTask(newText, newSolved, newDate)">Add task</button>
+      <button type="submit" class="btn btn-primary" (click)="addTask(newText, newSolved, newDate)" [disabled]="!newDate || !newText">Add task</button>
 
     </div>
   </div>
