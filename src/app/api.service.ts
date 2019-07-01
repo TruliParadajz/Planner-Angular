@@ -11,7 +11,7 @@ const baseUrl = 'http://localhost:60424/api/';
 })
 export class ApiService {
   Create(taskTemp: Task) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
     constructor(public http: HttpClient) {}
 
@@ -71,32 +71,24 @@ export class ApiService {
         }
     }
 
-    DeleteTask(taskId: number): Observable<any>
-    {
+    DeleteTask(taskId: number): Observable<any> {
         const header = new HttpHeaders();
         header.set('Content-Type', 'application/json');
-        try
-        {
+        try {
             const response = this.http.delete<any>(baseUrl + 'tasks/' + taskId);
             return response;
-        }
-        catch
-        {
+        } catch {
             return null;
         }
     }
 
-    CreateTask(task: Task): Observable<Task>
-    {
+    CreateTask(task: Task): Observable<Task> {
         const header = new HttpHeaders();
         header.set('Content-Type', 'application/json');
-        try
-        {
+        try {
             const response = this.http.post<Task>(baseUrl + 'tasks', task);
             return response;
-        }
-        catch
-        {
+        } catch {
             return null;
         }
     }
