@@ -20,17 +20,17 @@ export class AdminDashboardComponent implements OnInit {
   newText: string;
   newSolved: boolean;
   date: Date;
-  addTaskFlag: boolean = false;
+  addTaskFlag = false;
   usersLength = 0;
 
-  constructor(private service: ApiService, private router:Router) { }
+  constructor(private service: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.showUsers();
     this.taskEditForm = new FormGroup({
       text: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(15)])),
       solved: new FormControl(false)
-    });  
+    });
   }
 
 
@@ -76,7 +76,7 @@ export class AdminDashboardComponent implements OnInit {
     console.log(this.tasksFlag[i]);
   }
 
-  editTask(taskId: number, i: number){
+  editTask(taskId: number, i: number) {
     console.log(this.tasks);
     this.editFlags[i] = true;
     this.taskEditForm.patchValue({text: this.tasks[i].Text});
@@ -85,8 +85,7 @@ export class AdminDashboardComponent implements OnInit {
     this.date = new Date(this.tasks[i].Date);
   }
 
-  saveTask(taskId: number, i: number)
-  {
+  saveTask(taskId: number, i: number) {
     const newText = this.taskEditForm.controls.text.value;
     const newSolved = this.taskEditForm.controls.solved.value;
     const newDate = this.date;
@@ -113,74 +112,54 @@ export class AdminDashboardComponent implements OnInit {
     this.editFlags[i] = false;
   }
 
-  deleteTask(taskId: number)
-  {
+  deleteTask(taskId: number) {
     this.service.DeleteTask(taskId).subscribe(
-      () => 
-      {
+      () => {
         console.log('User update');
-      }, 
-      error => 
-      {
-        if (error.status === 0) 
-        {
+      },
+      error => {
+        if (error.status === 0) {
           alert('Service is not available, contact your Internet Service Provider!');
-        } 
-        else 
-        {
+        } else {
           console.log('Service error: ', error.error.Message);
           alert(error.error.Message);
         }
-      }, 
-      () => 
-      {
+      }, () => {
         alert('Task successfully deleted!');
         this.ngOnInit();
       });
-      
   }
-  newTask()
-  {
+
+  newTask() {
     this.addTaskFlag = true;
   }
-  addTask(newText, newSolved, newDate, userId: number)
-  {
+  addTask(newText, newSolved, newDate, userId: number) {
     console.log(newText, newSolved, newDate, userId);
     const userID = userId;
 
     this.service.CreateTask(new Task(newText, newSolved, newDate, userID)).subscribe(
-      () => 
-      {
+      () => {
         console.log('Create task');
-      }, 
-      error => 
-      {
-        if (error.status === 0) 
-        {
+      }, error => {
+        if (error.status === 0) {
           alert('Service is not available, contact your Internet Service Provider!');
-        } 
-        else 
-        {
+        } else {
           console.log('Service error: ', error.error.Message);
           alert(error.error.Message);
         }
-      }, 
-      () => 
-      {
+      }, () => {
         alert('Task successfully created!');
         this.newText = '';
         this.newSolved = false;
         this.service.GetUser(userId).subscribe(
           data => {
-            this.tasks = data.Tasks;             
+            this.tasks = data.Tasks;
             console.log(this.tasks);
-            console.log("kraj");
+            console.log('kraj');
           }
         );
       });
-
-      this.addTaskFlag = false;
+    this.addTaskFlag = false;
   }
-  
 
 }
