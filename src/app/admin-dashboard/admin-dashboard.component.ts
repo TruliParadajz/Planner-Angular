@@ -21,6 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   newSolved: boolean;
   date: Date;
   addTaskFlag: boolean = false;
+  usersLength = 0;
 
   constructor(private service: ApiService, private router:Router) { }
 
@@ -29,17 +30,18 @@ export class AdminDashboardComponent implements OnInit {
     this.taskEditForm = new FormGroup({
       text: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(15)])),
       solved: new FormControl(false)
-    });   
+    });  
   }
 
 
   showUsers() {
     this.service.GetUsers().subscribe(
       usersResponse => {
-        const test = usersResponse as User[];
+        const usersSize = usersResponse as User[];
+        this.usersLength = usersSize.length;
         // console.log('All users: ', usersResponse);
         // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < test.length; i++) {
+        for (let i = 0; i < usersSize.length; i++) {
           this.users.push(usersResponse);
         }
       }, error => {
@@ -59,12 +61,15 @@ export class AdminDashboardComponent implements OnInit {
 
 
   showTasks(userId: number, i: number) {
+    for (let j = 0; j < this.usersLength; j++) {
+      this.tasksFlag[j] = false;
+    }
     this.tasksFlag[i] = !this.tasksFlag[i];
     this.service.GetUser(userId).subscribe(
       data => {
-        this.tasks = data.Tasks;             
+        this.tasks = data.Tasks;
         console.log(this.tasks);
-        console.log("kraj");
+        console.log('kraj');
       }
     );
     console.log(userId, i);
