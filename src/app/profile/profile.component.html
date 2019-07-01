@@ -4,7 +4,9 @@
     <h4 class="profileBold">NAME: <span class="notBold">{{ user.Name }}</span></h4>
     <h4 class="profileBold">SURNAME: <span class="notBold">{{ user.Surname }}</span></h4>
     <h4 class="profileBold">EMAIL: <span class="notBold">{{ user.Email }}</span></h4>
-
+    <br>
+    <h4 class="profileBold">Solved tasks: <span class="notBold">{{ tasksSolved }}</span></h4>
+    <h4 class="profileBold">Unsolved tasks: <span class="notBold">{{ tasksUnsolved }}</span></h4>
     
     <form [formGroup]="userEditForm" (ngSubmit)="onUpdateUser()" *ngIf="editFlag">
       <div class="form-group">
@@ -34,3 +36,7 @@
   </div>
 </div>
   
+
+
+
+
