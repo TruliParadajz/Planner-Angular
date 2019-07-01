@@ -7,7 +7,7 @@
 
 <div class="container col-md-5" *ngIf="usersLoaded" style="float: none; margin: 0 auto;">
   <ul class="list-group" *ngFor="let user of users; let i = index">
-    <div class="listBorder" (click)="user[i].Role !== 'admin' && showTasks(user[i].Id, i)" >
+    <div class="listBorder" (click)="user[i].Role !== 'admin' && showTasks(user[i].Id, i)">
      {{ i+1 }}. {{ user[i].Name }} {{ user[i].Surname }} {{ user[i].Role === 'admin' ? '- Admin' : '' }}
     </div>
     <div *ngIf="tasksFlag[i]">
