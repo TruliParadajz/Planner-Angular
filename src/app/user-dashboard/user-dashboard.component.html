@@ -7,7 +7,7 @@
         <h4 class="titles" [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">{{task.Text}}</h4>
         <ul>
           <li>Date:
-            {{task.Date | date: "dd.MM.yyyy"}}</li>
+            {{task.Date | date: "MM/dd/yyyy"}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
       </div>

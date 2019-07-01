@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // inputEmail: string;
-  // inputPassword: string;
   loginForm: FormGroup;
   isProgressbarActive = false;
 
@@ -26,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // definiranje konstanti za dohvaćanje vrijednosti email i password iz forme
+    // definiranje konstanti za dohvaćanje vrijednosti emaila i passworda iz forme
     let userID = 0;
     let userRole = '';
     const userEmail = this.loginForm.controls.email.value;
