@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   // inputEmail: string;
   // inputPassword: string;
   loginForm: FormGroup;
-  isUserLogged = true;
+  isProgressbarActive = false;
 
   constructor(private service: ApiService, private router: Router) { }
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     let userRole = '';
     const userEmail = this.loginForm.controls.email.value;
     const userPassword = this.loginForm.controls.password.value;
-    this.isUserLogged = false;
+    this.isProgressbarActive = true;
 
     this.service.CheckUser(new User(0, '', '', userEmail, userPassword)). // pozivanje funkcije za provjeru korisnika iz baze
     subscribe( userResponse => {
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
         console.log('Service error: ', error.error.Message);
         alert(error.error.Message);
       }
+      this.isProgressbarActive = false;
     }, () => {
       if (userRole === 'admin') {
         this.router.navigate(['/admin']);
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
       }
       localStorage.setItem('login', 'true');
       localStorage.setItem('id', userID.toString());
-      this.isUserLogged = true;
+      this.isProgressbarActive = false;
       console.log('Logger: ', localStorage.getItem('login'));
     }
     );
