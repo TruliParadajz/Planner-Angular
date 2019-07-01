@@ -4,9 +4,9 @@
     <br>
     <div class="modal-body row" *ngFor="let task of tasks; let i = index">
       <div class="col-md-4">
-        <h4 class="titles">{{task.Text}}</h4>
+        <h4 class="titles" [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">{{task.Text}}</h4>
         <ul>
-          <li>Date: {{task.Date | date: "dd.MM.yyyy"}}</li>
+          <li [ngStyle]="{'text-decoration': task.Solved ? 'line-through' : 'none'}">Date: {{task.Date | date: "dd.MM.yyyy"}}</li>
           <li>Solved: {{task.Solved}}</li>
         </ul>
       </div>
