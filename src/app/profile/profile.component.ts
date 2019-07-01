@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { User } from '../Models/User';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,8 @@ export class ProfileComponent implements OnInit, DoCheck {
   dataFetched = false;
   userEditForm: FormGroup;
   editFlag = false;
+  tasksSolved: number = 0;
+  tasksUnsolved: number = 0;
 
   constructor(private service: ApiService, private router: Router) { }
 
@@ -23,6 +26,7 @@ export class ProfileComponent implements OnInit, DoCheck {
     this.userEditForm = new FormGroup({
       password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(15)]))
     });
+
   }
 
   ngDoCheck() {
@@ -48,6 +52,18 @@ export class ProfileComponent implements OnInit, DoCheck {
         };
         console.log('Tasks:');
         console.log(data.Tasks);
+
+        for(let i = 0; i < this.user.Tasks.length; i++)
+        {
+          if (this.user.Tasks[i].Solved === true)
+          {
+            this.tasksSolved ++;
+          }
+          else
+          {
+            this.tasksUnsolved ++;
+          }
+        }
       }
     );
   }
